@@ -1,4 +1,4 @@
-# Scroll Tabs
+# chromium-tab-scroller
 
 Chrome extension that switches tabs when you scroll the mouse wheel over the
 tab strip, using the proposed `chrome.uiSettings` extension API.
@@ -31,7 +31,7 @@ that contains the CL above, started with the feature flag:
 
 ```sh
 chrome --enable-features=ApiUiSettings \
-       --load-extension=/path/to/scroll-tabs-extension
+       --load-extension=/path/to/chromium-tab-scroller
 ```
 
 The `uiSettings` permission is unavailable without `ApiUiSettings`, so the
@@ -41,7 +41,7 @@ extension will fail to load on a stock Chrome.
 
 ```
 $ chrome --user-data-dir=/tmp/udd --enable-features=ApiUiSettings \
-         --load-extension=./scroll-tabs-extension about:blank
+         --load-extension=./chromium-tab-scroller about:blank
 INFO:CONSOLE: "scrollEventChangesTab: true (controlled_by_this_extension)",
   source: chrome-extension://kkpalflifkjhenoaokgfjihibhhjgmca/background.js
 
