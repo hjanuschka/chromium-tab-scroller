@@ -14,13 +14,15 @@ platform. This extension is that opt-in.
 
 ## What it does
 
-On install it enables the behavior:
+The toolbar popup toggles the behavior:
 
 ```js
 chrome.uiSettings.scrollEventChangesTab.set({value: true});
 ```
 
-The toolbar popup toggles it. Unchecking calls `clear()` rather than
+`set()` and `clear()` require a user gesture, so the setting can only change
+from a user action like the popup toggle -- an extension cannot flip it
+silently in the background. Unchecking calls `clear()` rather than
 `set({value: false})`, which hands the preference back to Chrome's default --
 the same thing that happens if you uninstall the extension.
 
@@ -42,8 +44,7 @@ extension will fail to load on a stock Chrome.
 ```
 $ chrome --user-data-dir=/tmp/udd --enable-features=ApiUiSettings \
          --load-extension=./chromium-tab-scroller about:blank
-INFO:CONSOLE: "scrollEventChangesTab: true (controlled_by_this_extension)",
-  source: chrome-extension://kkpalflifkjhenoaokgfjihibhhjgmca/background.js
+# toggle the checkbox in the toolbar popup, then:
 
 $ jq '.extensions.settings[].preferences | select(. != null)' /tmp/udd/Default/Preferences
 {
@@ -56,5 +57,4 @@ $ jq '.extensions.settings[].preferences | select(. != null)' /tmp/udd/Default/P
 | File | Purpose |
 | --- | --- |
 | `manifest.json` | MV3 manifest, declares the `uiSettings` permission |
-| `background.js` | Enables the setting on install |
 | `popup.html` / `popup.js` | Toggle plus the current `levelOfControl` |

@@ -4,9 +4,6 @@
   "version": "1.0",
   "description": "Switch tabs by scrolling the mouse wheel over the tab strip.",
   "permissions": ["uiSettings"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
     "default_popup": "popup.html",
     "default_title": "Scroll Tabs"
