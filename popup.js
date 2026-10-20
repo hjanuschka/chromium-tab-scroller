@@ -9,7 +9,9 @@ const control = document.getElementById('control');
 async function render() {
   const details = await setting.get({});
   toggle.checked = details.value;
-  toggle.disabled = !details.levelOfControl.startsWith('controllable');
+  // "controlled_by_this_extension" also means we may change the value;
+  // only the platform default (no extension authority) is read-only.
+  toggle.disabled = details.levelOfControl === 'default';
   control.textContent = details.levelOfControl.replaceAll('_', ' ');
 }
 
